@@ -1,0 +1,148 @@
+{
+  "subject": "Science",
+  "teacher": "Hepp, Jackie",
+  "student": {
+    "name": "Vora, Samir",
+    "year": "2024-2025"
+  },
+  "categories": {
+    "classwork": [
+      {
+        "assignment": "Lab Safety Poster",
+        "points": 10,
+        "max": 10,
+        "average": 100,
+        "status": "Valid",
+        "due": "2024-08-14"
+      },
+      {
+        "assignment": "Bellwork Week 8-12 to 8-16",
+        "points": 6,
+        "max": 6,
+        "average": 100,
+        "status": "Valid",
+        "due": "2024-08-16"
+      },
+      {
+        "assignment": "Notes: Nature of Science",
+        "points": 30,
+        "max": 40,
+        "average": 75,
+        "status": "Valid",
+        "due": "2024-08-23"
+      },
+      {
+        "assignment": "Bellwork Week of 8-19 to 8-24",
+        "points": 5,
+        "max": 5,
+        "average": 100,
+        "status": "Valid",
+        "due": "2024-08-23"
+      },
+      {
+        "assignment": "Bellwork 8/26 to 8/29",
+        "points": 1,
+        "max": 4,
+        "average": 25,
+        "status": "Valid",
+        "due": "2024-08-29"
+      },
+      {
+        "assignment": "Law and Theory Posters",
+        "points": 40,
+        "max": 40,
+        "average": 100,
+        "status": "Valid",
+        "due": "2024-04-09"
+      },
+      {
+        "assignment": "Nature of Science Test",
+        "points": 46,
+        "max": 50,
+        "average": 92,
+        "status": "Valid",
+        "due": "09/set"
+      },
+      {
+        "assignment": "BW: 09-16-24 to 09-20-24",
+        "points": 5,
+        "max": 5,
+        "average": 100,
+        "status": "Valid",
+        "due": "2024-09-13"
+      },
+      {
+        "assignment": "BW: 09-09-24 to 09-13-24",
+        "points": 5,
+        "max": 5,
+        "average": 100,
+        "status": "Valid",
+        "due": "2024-09-13"
+      },
+      {
+        "assignment": "Phet Simulations Radioactive Dating",
+        "points": 20,
+        "max": 20,
+        "average": 100,
+        "status": "Valid",
+        "due": "2024-09-16"
+      },
+      {
+        "assignment": "BW: 09/23/24 to 09/27/24",
+        "points": 5,
+        "max": 5,
+        "average": 100,
+        "status": "Valid",
+        "due": "2024-09-27"
+      },
+      {
+        "assignment": "BW: 10/14/24 to 10/18/24",
+        "points": 5,
+        "max": 5,
+        "average": 100,
+        "status": "Valid",
+        "due": "2024-10-18"
+      }
+    ],
+    "homework": [
+      {
+        "assignment": "Syllabus",
+        "points": 5,
+        "max": 5,
+        "average": 100,
+        "status": "Valid",
+        "due": "2024-08-16"
+      },
+      {
+        "assignment": "Variables Practice",
+        "points": 10,
+        "max": 10,
+        "average": 100,
+        "status": "Valid",
+        "due": "2024-08-23"
+      },
+      {
+        "assignment": "HWK Quizizz Practice",
+        "points": 6.3,
+        "max": 10,
+        "average": 63,
+        "status": "Valid",
+        "due": "2024-09-27"
+      }
+    ],
+    "quiz": [
+      {
+        "assignment": "Geologic Time Quiz",
+        "points": 9,
+        "max": 15,
+        "average": 60,
+        "status": "Valid",
+        "due": "2024-02-10"
+      }
+    ],
+    "tests": [],
+    "projects": []
+  },
+  "termGrade": "89 B"
+}
+
