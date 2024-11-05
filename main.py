@@ -88,21 +88,37 @@ def setup_grade_store():
 
 
 def setup_event_store():
+    print("Setting up event store...", file=sys.stderr)  # Log
     event_collection = event_vector_store.get()
     if len(event_collection["ids"]) == 0:
         event_documents = []
         for event in calendar_data["events"]:
-            event_date = event.get("date") or event.get(
-                "date_range", "No date specified"
-            )
-            content = f"Date: {event_date}\nEvent: {event['event']}"
+            if "date" in event:
+                event_date = event["date"]
+                date_info = f"Date: {event_date}"
+            else:
+                start_date = event["start_date"]
+                end_date = event["end_date"]
+                date_info = f"Start Date: {start_date}, End Date: {end_date}"
+
+            content = f"{date_info}\nEvent: {event['event']}"
+
             metadata = {
+                "school": calendar_data["school"],
                 "calendar_year": calendar_data["calendar_year"],
-                "date": event_date,
+                "event_name": event["event"],
+                "start_date": event.get("start_date", event.get("date", "")),
+                "end_date": event.get("end_date", event.get("date", "")),
+                "is_range": "start_date" in event,
             }
+
+            print(f"Adding event: {event['event']}", file=sys.stderr)  # Log
             doc = Document(page_content=content, metadata=metadata)
             event_documents.append(doc)
+
+        print(f"Total events to add: {len(event_documents)}", file=sys.stderr)  # Log
         event_vector_store.add_documents(event_documents)
+        print("Event store setup complete", file=sys.stderr)  # Log
 
 
 def query_grades(query_text):
@@ -129,9 +145,12 @@ def query_grades(query_text):
 
 
 def query_events(query_text, include_date=True):
+    print(f"Processing event query: {query_text}", file=sys.stderr)  # Log
     llm = ChatOpenAI(temperature=0)
     qa_prompt = PromptTemplate(
-        template="""Answer the following question about school events based on the provided context:
+        template="""Answer the following question about school events based on the provided context. 
+        If the question is about dates or timing, be specific about the dates.
+        If multiple events match the query, list them chronologically.
         
         Context: {context}
         Question: {question}
@@ -151,7 +170,9 @@ def query_events(query_text, include_date=True):
         current_date = datetime.now().strftime("%Y-%m-%d")
         query_text = f"Current date is {current_date}. {query_text}"
 
+    print(f"Sending query to LLM: {query_text}", file=sys.stderr)  # Log
     result = qa_chain.invoke(query_text)
+    print(f"Received response from LLM", file=sys.stderr)  # Log
     return result["result"] if isinstance(result, dict) else result
 
 
