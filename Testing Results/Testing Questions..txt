@@ -1,0 +1,65 @@
+git add .
+git commit -m "your commit message"
+git push origin frontend-setup
+
+
+
+For the Python script, you need:
+1. First argument: query_type (should be one of):
+   - `grades`
+   - `upcomingEvents`
+   - `pastEvents`
+2. Second argument: the actual query text
+
+So you can try:
+```bash
+# For grades
+python main.py grades "what are the science grades?"
+
+# For calendar
+python main.py upcomingEvents "what events are happening next month?"
+```
+
+
+Would you like me to help you test both the grades and calendar functionality to make sure they're working before we continue with the deployment?
+
+
+python main.py grades "what are the science grades?"
+what are the science grades?
+show me my term grade in science
+what assignments are missing in science?
+what's my average in the homework category?
+
+python main.py upcomingEvents "What events are happening next month?"
+python main.py pastEvents "When is the Christmas Break?"
+python main.py upcomingEvents "List all school holidays"
+
+python main.py upcomingEvents "When does school start?"
+python main.py upcomingEvents "When is the last day of school?"
+python main.py upcomingEvents "What events are happening in March 2025?"
+
+python main.py upcomingEvents "When is Spring Break?"
+python main.py upcomingEvents "List all holiday breaks in the school year"
+python main.py upcomingEvents "How long is Christmas Break?"
+
+python main.py upcomingEvents "When are the Parent/Teacher conferences?"
+python main.py upcomingEvents "When does standardized testing happen?"
+python main.py upcomingEvents "When does the first trimester end?"
+
+python main.py upcomingEvents "Tell me about the Fall Festival"
+python main.py upcomingEvents "When is the Walk-a-thon?"
+python main.py upcomingEvents "When is 8th Grade Graduation?"
+
+python main.py upcomingEvents "List all teacher in-service days"
+python main.py upcomingEvents "What days will there be no school?"
+python main.py upcomingEvents "Are there any hurricane make-up days scheduled?"
+
+python main.py upcomingEvents "What events are happening next month?"
+python main.py upcomingEvents "What events are scheduled for Catholic Schools Week?"
+python main.py upcomingEvents "What events are happening between January and March?"
+
+python main.py upcomingEvents "When are the Open House dates?"
+python main.py upcomingEvents "When do students need to wear dress uniforms?"
+python main.py upcomingEvents "What events require early dismissal?"
+
+python main.py pastEvents "List all events in chronological order"
