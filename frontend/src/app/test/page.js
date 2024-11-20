@@ -8,7 +8,8 @@ export default function TestPage() {
   useEffect(() => {
     const testAPI = async () => {
       try {
-        const response = await fetch("/api/test");
+        console.log("Testing API connection...");
+        const response = await fetch("/api/python-test");
         console.log("Response status:", response.status);
         const data = await response.json();
         console.log("Response data:", data);
@@ -23,10 +24,10 @@ export default function TestPage() {
   }, []);
 
   return (
-    <div>
-      <h1>API Test Page</h1>
-      {message && <p>Message: {message}</p>}
-      {error && <p>Error: {error}</p>}
+    <div className="p-4">
+      <h1 className="text-2xl mb-4">API Test Page</h1>
+      {message && <p className="text-green-600">Message: {message}</p>}
+      {error && <p className="text-red-600">Error: {error}</p>}
     </div>
   );
 }

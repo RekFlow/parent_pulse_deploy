@@ -2,25 +2,22 @@
   "version": 2,
   "builds": [
     {
-      "src": "frontend/**",
-      "use": "@vercel/next"
+      "src": "api/main.py",
+      "use": "@vercel/python"
     },
     {
-      "src": "main.py",
-      "use": "@vercel/python"
+      "src": "frontend/package.json",
+      "use": "@vercel/next"
     }
   ],
   "routes": [
     {
       "src": "/api/(.*)",
-      "dest": "/main.py"
+      "dest": "/api/main.py"
     },
     {
       "src": "/(.*)",
       "dest": "/frontend/$1"
     }
-  ],
-  "env": {
-    "PYTHONPATH": "."
-  }
+  ]
 }
