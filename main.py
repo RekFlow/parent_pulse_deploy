@@ -1,13 +1,19 @@
 import json
+import logging
 import os
 from datetime import datetime
 
 from dotenv import load_dotenv
+from fastapi.middleware.cors import CORSMiddleware
 from langchain.chains import RetrievalQA
 from langchain.prompts import PromptTemplate
 from langchain_chroma import Chroma
 from langchain_core.documents import Document
 from langchain_openai import ChatOpenAI, OpenAIEmbeddings
+
+# Configure logging
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
 
 # Load environment variables
 load_dotenv()
