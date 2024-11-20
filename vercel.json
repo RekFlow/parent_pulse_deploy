@@ -2,25 +2,26 @@
   "version": 2,
   "builds": [
     {
-      "src": "api/main.py",
-      "use": "@vercel/python"
+      "src": "frontend/**",
+      "use": "@vercel/next"
     },
     {
-      "src": "frontend/package.json",
-      "use": "@vercel/next"
+      "src": "api/**/*.py",
+      "use": "@vercel/python"
     }
   ],
   "routes": [
     {
-      "src": "/api/(.*)",
-      "dest": "api/main.py"
+      "src": "/api/python-test",
+      "dest": "api/python-test.py"
+    },
+    {
+      "src": "/api/query",
+      "dest": "api/query.py"
     },
     {
       "src": "/(.*)",
       "dest": "frontend/$1"
     }
-  ],
-  "env": {
-    "PYTHONPATH": "."
-  }
+  ]
 }
