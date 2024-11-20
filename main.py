@@ -207,6 +207,18 @@ async def handle_api(path: str):
     return {"message": f"Endpoint {path} reached"}
 
 
+@app.get("/api/python-test")
+async def python_test():
+    logger.info("Python test endpoint accessed")
+    return {"message": "Python backend is working"}
+
+
+@app.get("/api/query")
+async def query():
+    logger.info("Query endpoint accessed")
+    return {"message": "Query endpoint reached"}
+
+
 # ... rest of your endpoints ...
 
 if __name__ == "__main__":
