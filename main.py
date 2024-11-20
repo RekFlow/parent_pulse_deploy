@@ -4,6 +4,7 @@ import os
 from datetime import datetime
 
 from dotenv import load_dotenv
+from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from langchain.chains import RetrievalQA
 from langchain.prompts import PromptTemplate
@@ -181,6 +182,32 @@ def query_events(query_text, include_date=True):
     print(f"Received response from LLM", file=sys.stderr)  # Log
     return result["result"] if isinstance(result, dict) else result
 
+
+app = FastAPI()
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+
+@app.get("/")  # Root endpoint for health check
+async def root():
+    logger.info("Root endpoint accessed")
+    return {"status": "API is running"}
+
+
+# Update your existing endpoints to match the routes in vercel.json
+@app.get("/api/{path}")
+async def handle_api(path: str):
+    logger.info(f"API endpoint accessed: {path}")
+    return {"message": f"Endpoint {path} reached"}
+
+
+# ... rest of your endpoints ...
 
 if __name__ == "__main__":
     import sys

@@ -2,7 +2,7 @@
   "version": 2,
   "builds": [
     {
-      "src": "frontend/package.json",
+      "src": "frontend/**",
       "use": "@vercel/next"
     },
     {
@@ -13,11 +13,14 @@
   "routes": [
     {
       "src": "/api/(.*)",
-      "dest": "main.py"
+      "dest": "/main.py"
     },
     {
       "src": "/(.*)",
-      "dest": "frontend/$1"
+      "dest": "/frontend/$1"
     }
-  ]
+  ],
+  "env": {
+    "PYTHONPATH": "."
+  }
 }
