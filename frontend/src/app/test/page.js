@@ -9,7 +9,7 @@ export default function TestPage() {
     const testAPI = async () => {
       try {
         console.log("Testing API connection...");
-        const response = await fetch("/api/python-test");
+        const response = await fetch("/api/test");
         console.log("Response status:", response.status);
         const data = await response.json();
         console.log("Response data:", data);

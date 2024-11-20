@@ -230,3 +230,9 @@ async def query(query_type: str, query_text: str):
     except Exception as e:
         logger.error(f"Error in query endpoint: {str(e)}")
         return {"error": str(e)}
+
+
+@app.get("/api/test")
+async def test():
+    logger.info("Test endpoint accessed")
+    return {"message": "Hello from the backend!"}
