@@ -1,6 +1,7 @@
 import json
 import logging
 import os
+import sys
 from datetime import datetime
 
 from dotenv import load_dotenv
@@ -185,69 +186,47 @@ def query_events(query_text, include_date=True):
 
 app = FastAPI()
 
+# Update CORS to allow both development and production URLs
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=[
+        "https://parent-pulse-deploy-5wuxkxdmy-eurekas-projects-33f9ad9f.vercel.app",
+        "http://localhost:3000",  # For local development
+    ],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
 
 
-@app.get("/")  # Root endpoint for health check
-async def root():
-    logger.info("Root endpoint accessed")
-    return {"status": "API is running"}
-
-
-# Update your existing endpoints to match the routes in vercel.json
-@app.get("/api/{path}")
-async def handle_api(path: str):
-    logger.info(f"API endpoint accessed: {path}")
-    return {"message": f"Endpoint {path} reached"}
-
-
 @app.get("/api/python-test")
-async def python_test():
-    logger.info("Python test endpoint accessed")
-    return {"message": "Python backend is working"}
+async def test():
+    logger.info("Test endpoint accessed")
+    try:
+        return {"message": "Hello from the backend!", "status": "success"}
+    except Exception as e:
+        logger.error(f"Error in test endpoint: {str(e)}")
+        return {"message": str(e), "status": "error"}
 
 
 @app.get("/api/query")
-async def query():
-    logger.info("Query endpoint accessed")
-    return {"message": "Query endpoint reached"}
-
-
-# ... rest of your endpoints ...
-
-if __name__ == "__main__":
-    import sys
-
-    if len(sys.argv) != 3:
-        print(json.dumps({"error": "Please provide query_type and query text"}))
-        sys.exit(1)
-
-    query_type = sys.argv[1]
-    query = sys.argv[2]
-
+async def query(query_type: str, query_text: str):
+    logger.info(f"Query endpoint accessed with type: {query_type}, text: {query_text}")
     try:
         # Initialize stores if needed
         setup_grade_store()
         setup_event_store()
 
         if query_type == "grades":
-            result = query_grades(query)
-            print(json.dumps({"response": result}))
+            result = query_grades(query_text)
         elif query_type == "pastEvents":
-            result = query_events(query, include_date=False)
-            print(json.dumps({"response": result}))
+            result = query_events(query_text, include_date=False)
         elif query_type == "upcomingEvents":
-            result = query_events(query, include_date=True)
-            print(json.dumps({"response": result}))
+            result = query_events(query_text, include_date=True)
         else:
-            print(json.dumps({"error": "Invalid query type"}))
+            return {"error": "Invalid query type"}
 
+        return {"response": result}
     except Exception as e:
-        print(json.dumps({"error": str(e)}))
-        sys.exit(1)
+        logger.error(f"Error in query endpoint: {str(e)}")
+        return {"error": str(e)}
