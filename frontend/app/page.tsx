@@ -13,7 +13,7 @@ interface Message {
   timestamp: number;
 }
 
-export default function Home() {
+export default function Page() {
   const [messages, setMessages] = useState<Message[]>([]);
   const [inputMessage, setInputMessage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
@@ -25,8 +25,14 @@ export default function Home() {
     setMessages([
       {
         id: 1,
-        content:
-          "Welcome to the School Information System! You can ask about past events, grades, or upcoming events. How can I assist you today?",
+        content: `Welcome to the School Information System! You can ask questions like:
+        
+• "What are my grades in science?"
+• "Show me upcoming events"
+• "What events happened last month?"
+• "When is the next parent-teacher conference?"
+
+How can I help you today?`,
         isUser: false,
         timestamp: Date.now(),
       },
@@ -41,9 +47,25 @@ export default function Home() {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   };
 
-  const handleSubmit = async (event: React.FormEvent) => {
-    event.preventDefault();
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
     if (!inputMessage.trim() || isLoading) return;
+
+    let queryType = "grades";
+    const lowercaseInput = inputMessage.toLowerCase();
+    if (
+      lowercaseInput.includes("event") ||
+      lowercaseInput.includes("dismissal") ||
+      lowercaseInput.includes("when") ||
+      lowercaseInput.includes("date") ||
+      lowercaseInput.includes("calendar")
+    ) {
+      if (lowercaseInput.includes("past") || lowercaseInput.includes("last")) {
+        queryType = "pastEvents";
+      } else {
+        queryType = "upcomingEvents";
+      }
+    }
 
     const newUserMessage = {
       id: messages.length + 1,
@@ -56,21 +78,29 @@ export default function Home() {
     setIsLoading(true);
 
     try {
+      console.log("Sending request with:", { queryType, inputMessage });
       const response = await fetch("/api/query", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ query: inputMessage }),
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          query_text: inputMessage.replace(/['".,]$/g, ""),
+          query_type: queryType,
+        }),
       });
 
+      if (!response.ok) {
+        const errorData = await response.json();
+        console.error("API Error details:", errorData);
+        throw new Error(`Failed to get response: ${response.status}`);
+      }
+
       const data = await response.json();
+      console.log("Received response:", data);
 
       const aiResponse =
         data.response ||
         data.error ||
         "Sorry, I couldn't process that request.";
-
       const newAIMessage = {
         id: messages.length + 2,
         content: aiResponse,
@@ -112,9 +142,11 @@ export default function Home() {
 
   return (
     <div className="flex flex-col h-screen max-w-2xl mx-auto p-4">
-      <h1 className="text-4xl font-bold text-center text-purple-600 mb-8">
-        School Information System
-      </h1>
+      <header className="sticky top-0 z-50 flex items-center justify-center px-4 py-6 bg-white shadow-md">
+        <h1 className="text-4xl font-bold text-purple-600 font-sans">
+          Parent Pulse
+        </h1>
+      </header>
 
       <div className="flex-grow mb-4 border rounded-lg overflow-hidden">
         <div className="h-[calc(100vh-250px)] overflow-y-auto p-4">

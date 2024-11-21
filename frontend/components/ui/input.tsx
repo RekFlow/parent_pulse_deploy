@@ -11,3 +11,8 @@ export function Input({
     />
   );
 }
+
+// Add logging for development/debugging
+if (process.env.NODE_ENV === "development") {
+  console.log("Input component loaded");
+}

@@ -1,0 +1,133 @@
+DATA from the EXCEL file 
+
+Yes, here are some specific test questions based on the grade data for Samir's Social Studies class:
+
+Test Questions:
+1. "What is my current grade in Science?"
+2. "What was my score on the Nature of Science Test?"
+3. "How did I do on my Lab Safety Poster?"
+4. "What's my classwork average?"
+5. "What's my homework average?"
+6. "How am I doing on quizzes?"
+7. "What assignments did I complete in August?"
+8. "What was my lowest quiz score?"
+9. "What assignments have I gotten 100% on?"
+10. "What's my grade on recent bellwork assignments?"
+
+For debugging purposes, try these questions and check:
+1. The console logs in the browser dev tools
+2. The terminal running your Next.js server
+3. The terminal running your Python backend
+
+The responses should include specific grades and scores from the CSV file. For example:
+- The overall grade should show as 89 (B)
+- The Nature of Science Test score should show as 46/50 (92%)
+- The classwork average should be 91%
+- The homework average should be 85%
+- The quiz average should be 60%
+
+If you're not getting this specific information in the responses, we may need to check:
+1. If the CSV file is properly loaded into the Chroma database
+2. If the query processing in the Python backend is correctly parsing the grades
+3. If the embeddings are properly capturing the grade information
+
+DATA json file structure:
+
+Yes, here are specific test questions based on the science_grades.json file structure:
+
+Test Questions for Grades:
+1. "What's my current grade in Science with Ms. Hepp?"
+2. "What's my overall term grade?"
+3. "How am I doing in Ms. Hepp's class?"
+
+Classwork Questions:
+1. "What was my score on the Nature of Science Test?"
+2. "How did I do on the Lab Safety Poster?"
+3. "What's my grade on the Phet Simulations Radioactive Dating assignment?"
+4. "Show me all my bellwork grades"
+5. "What assignments did I get 100% on?"
+6. "What was my lowest scoring bellwork assignment?"
+
+Homework Questions:
+1. "How did I do on the Variables Practice homework?"
+2. "What was my score on the HWK Quizizz Practice?"
+3. "Show me all my homework assignments"
+4. "What's my grade on the Syllabus homework?"
+
+Quiz Questions:
+1. "What's my grade on the Geologic Time Quiz?"
+2. "Show me all my quiz scores"
+3. "How am I doing on quizzes?"
+
+Time-based Questions:
+1. "What assignments were due in August?"
+2. "Show me my September assignments"
+3. "What grades did I get in October?"
+4. "What's my most recent assignment grade?"
+
+Category Analysis:
+1. "Which category am I doing best in?"
+2. "Show me all my perfect scores"
+3. "What assignments do I need to improve on?"
+4. "What's my lowest grade so far?"
+
+Each of these questions should return specific data from the JSON file. For example:
+- Term grade queries should return "89 B"
+- Nature of Science Test queries should return "46/50 points (92%)"
+- Lab Safety Poster queries should return "10/10 points (100%)"
+
+This will help verify if the Chroma database is properly processing and returning the correct information from the JSON file.
+
+
+DATA from the school_calendar.json
+
+Here are specific test questions based on the school_calendar.json data:
+
+Upcoming Events Questions:
+1. "When is the next parent-teacher conference?"
+2. "What events are happening next month?"
+3. "When does Christmas Break start?"
+4. "When do classes resume after Christmas Break?"
+5. "When is the last day of school?"
+
+Past Events Questions:
+1. "When was the first day of school?"
+2. "What events happened in August?"
+3. "When was Open House?"
+4. "What events have already passed?"
+5. "When was Back to School Night?"
+
+Holiday Questions:
+1. "When is Spring Break?"
+2. "What are the dates for Christmas Break?"
+3. "When is Easter Break?"
+4. "What holidays are we off school?"
+5. "Is there school on Presidents' Day?"
+
+Academic Calendar Questions:
+1. "When does the first trimester end?"
+2. "When is the second trimester over?"
+3. "When is graduation?"
+4. "When are the TerraNova Testing dates?"
+5. "When is Catholic Schools Week?"
+
+Specific Event Questions:
+1. "Tell me about the Annunciation Fall Festival"
+2. "When is the Walk-a-thon?"
+3. "What time is dismissal on Walk-a-thon day?"
+4. "When do we wear dress uniforms for Ash Wednesday?"
+5. "Are there any hurricane makeup days scheduled?"
+
+Conference Questions:
+1. "When are the K-5 parent teacher conferences?"
+2. "What's the difference between A and B class conferences?"
+3. "When are the March parent-teacher conferences?"
+4. "Show me all parent-teacher conference dates"
+5. "When is the next conference for B classes?"
+
+Each question should return specific dates and details from the JSON file. For example:
+- Christmas Break query should return "December 23, 2024 to January 3, 2025"
+- First day of school query should return "August 12, 2024"
+- Walk-a-thon query should return "January 31, 2025 with 12:00 PM dismissal"
+
+These questions will help verify if the event querying system is working correctly for both past and upcoming events.

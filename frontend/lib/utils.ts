@@ -1,7 +1,6 @@
-export function formatDate(date: Date): string {
-  return new Intl.DateTimeFormat("en-US").format(date);
-}
+import { type ClassValue, clsx } from "clsx";
+import { twMerge } from "tailwind-merge";
 
-export function logger(message: string, data?: any) {
-  console.log(`[${new Date().toISOString()}] ${message}`, data || "");
+export function cn(...inputs: ClassValue[]) {
+  return twMerge(clsx(inputs));
 }

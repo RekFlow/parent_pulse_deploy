@@ -1,83 +1,53 @@
 import { NextRequest, NextResponse } from "next/server";
-import { spawn } from "child_process";
-import path from "path";
 
-export async function POST(req: NextRequest): Promise<NextResponse> {
+export async function POST(req: NextRequest) {
   try {
-    console.log("API route handler started");
-    const { query } = await req.json();
-    console.log("Received query:", query);
+    const body = await req.json();
+    const { query_type, query_text } = body;
 
-    const pythonScriptPath = path.join(
-      "C:",
-      "Users",
-      "eurek",
-      "My Desktop",
-      "AI Playground",
-      "Parent Pulse",
-      "main.py"
-    );
-    console.log("Python script path:", pythonScriptPath);
+    console.log("API Route - Processing request:", { query_type, query_text });
 
-    const response = await new Promise<NextResponse>((resolve) => {
-      const pythonProcess = spawn("python", [
-        pythonScriptPath,
-        "grades",
-        query,
-      ]);
+    const apiUrl =
+      process.env.NODE_ENV === "development"
+        ? "http://localhost:8000/api/query"
+        : "https://your-production-url.com/api/query";
 
-      let stdoutData = "";
+    console.log("Sending request to Python backend:", apiUrl);
 
-      pythonProcess.stdout.on("data", (data) => {
-        const output = data.toString();
-        console.log("Raw Python output:", output);
-        stdoutData += output;
-      });
-
-      pythonProcess.stderr.on("data", (data) => {
-        const error = data.toString();
-        console.error("Python stderr:", error);
-      });
-
-      pythonProcess.on("close", (code) => {
-        console.log("Python process exited with code:", code);
-
-        if (code !== 0) {
-          resolve(
-            NextResponse.json(
-              { error: "Python script failed to execute" },
-              { status: 500 }
-            )
-          );
-          return;
-        }
-
-        try {
-          const jsonData = JSON.parse(stdoutData.trim());
-          console.log("Parsed response:", jsonData);
-
-          resolve(NextResponse.json(jsonData));
-        } catch (error) {
-          console.error("Failed to parse Python output:", error);
-          resolve(
-            NextResponse.json(
-              {
-                error: "Failed to process response",
-                details: stdoutData,
-              },
-              { status: 500 }
-            )
-          );
-        }
-      });
+    const response = await fetch(apiUrl, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        query_type,
+        query_text,
+      }),
     });
 
-    return response;
+    if (!response.ok) {
+      const errorText = await response.text();
+      console.error("Python Backend Error:", response.status, errorText);
+      throw new Error(`Backend API returned ${response.status}: ${errorText}`);
+    }
+
+    const data = await response.json();
+    console.log("Received response from Python backend:", data);
+
+    return NextResponse.json(data);
   } catch (error) {
-    console.error("Route handler error:", error);
+    console.error("Error in API route:", error);
     return NextResponse.json(
-      { error: "Internal server error" },
+      {
+        error: "Internal Server Error",
+        details: error instanceof Error ? error.message : "Unknown error",
+      },
       { status: 500 }
     );
   }
+}
+
+// Add logging for development/debugging
+if (process.env.NODE_ENV === "development") {
+  console.log("Query API route loaded");
 }
