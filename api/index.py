@@ -11,6 +11,7 @@ from langchain_chroma import Chroma
 from langchain_community.chat_models import ChatOpenAI
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_openai import OpenAIEmbeddings
+from mangum import Mangum
 from pydantic import BaseModel
 
 # Set up logging
@@ -183,6 +184,9 @@ async def process_query(query_request: Query):
         logger.error(f"Error: {str(e)}")
         raise HTTPException(status_code=500, detail=str(e))
 
+
+# Add this at the end for Vercel
+handler = Mangum(app)
 
 if __name__ == "__main__":
     import uvicorn
