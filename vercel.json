@@ -1,13 +1,11 @@
 {
   "version": 2,
+  "buildCommand": "cd frontend && npm run build",
+  "outputDirectory": "frontend/.next",
   "builds": [
     {
-      "src": "frontend/package.json",
-      "use": "@vercel/next",
-      "config": {
-        "buildCommand": "npm run build",
-        "outputDirectory": ".next"
-      }
+      "src": "frontend/**",
+      "use": "@vercel/next"
     },
     {
       "src": "api/index.py",
@@ -23,5 +21,8 @@
       "src": "/(.*)",
       "dest": "frontend/$1"
     }
-  ]
+  ],
+  "github": {
+    "silent": true
+  }
 }
