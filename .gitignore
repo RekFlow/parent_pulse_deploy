@@ -11,6 +11,10 @@ dist/
 build/
 *.egg-info/
 
+# Python dependencies and virtual environments
+parentpulse/Lib/
+parentpulse/Lib/site-packages/
+
 # Virtual Environment
 venv/
 env/
