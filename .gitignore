@@ -68,4 +68,36 @@ htmlcov/
 coverage.xml
 *.cover
 
+# Public Directory (specific subfolders)
+public/dev-assets/
+public/mockdata/
+public/temp-images/
+assets/development/
+
+# Large Media Files
+public/**/*.mp4
+public/**/*.mov
+public/**/*.avi
+public/**/*.webm
+public/**/*.wmv
+public/videos/
+public/high-res-images/
+
+# Testing Results and Development Folders
+Testing Results/
+__tests__/
+coverage/
+.storybook/
+
+# Documentation (optional, if not needed for deployment)
+docs/
+wiki/
+*.md
+
+# Source Maps
+**/*.map
+
+# Vercel Temporary Config
+.vercel/output/
+
 # Any other project-specific files or directories you want to ignore
